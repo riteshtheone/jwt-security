@@ -4,8 +4,10 @@ import com.example.jwtdemo.model.User
 import com.example.jwtdemo.service.UserService
 import com.example.jwtdemo.utils.UserRequest
 import com.example.jwtdemo.utils.UserResponse
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.server.ResponseStatusException
 import java.util.*
@@ -13,7 +15,8 @@ import java.util.*
 @RestController
 @RequestMapping("/api/user")
 class UserController(
-    private val userService: UserService
+    @Autowired private val userService: UserService,
+    @Autowired private val passwordEncoder: PasswordEncoder,
 ) {
 
     @PostMapping
@@ -49,13 +52,14 @@ class UserController(
         UserResponse(
             uuid = this.id,
             email = this.email,
+            password = this.password
         )
 
     private fun UserRequest.toModel(): User =
         User(
             id = UUID.randomUUID(),
             email = this.email,
-            password = this.password,
+            password = passwordEncoder.encode(this.password),
             role = Role.USER,
         )
 }

@@ -4,6 +4,7 @@ import com.example.jwtdemo.config.JwtProperties
 import com.example.jwtdemo.repository.RefreshTokenRepository
 import com.example.jwtdemo.utils.AuthenticationRequest
 import com.example.jwtdemo.utils.AuthenticationResponse
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.userdetails.UserDetails
@@ -12,11 +13,11 @@ import java.util.*
 
 @Service
 class AuthenticationService(
-    private val authManager: AuthenticationManager,
-    private val userDetailsService: CustomUserDetailsService,
-    private val tokenService: TokenService,
-    private val jwtProperties: JwtProperties,
-    private val refreshTokenRepository: RefreshTokenRepository,
+    @Autowired private val authManager: AuthenticationManager,
+    @Autowired private val userDetailsService: CustomUserDetailsService,
+    @Autowired private val tokenService: TokenService,
+    @Autowired private val jwtProperties: JwtProperties,
+    @Autowired private val refreshTokenRepository: RefreshTokenRepository,
 ) {
 
     fun authentication(authenticationRequest: AuthenticationRequest): AuthenticationResponse {
@@ -27,7 +28,11 @@ class AuthenticationService(
             )
         )
 
+        println("authentication")
+
         val user = userDetailsService.loadUserByUsername(authenticationRequest.email)
+
+        println(user)
 
         val accessToken = createAccessToken(user)
         val refreshToken = createRefreshToken(user)

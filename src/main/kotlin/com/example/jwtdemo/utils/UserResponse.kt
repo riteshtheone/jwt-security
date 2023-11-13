@@ -5,4 +5,5 @@ import java.util.*
 data class UserResponse(
     val uuid: UUID,
     val email: String,
+    val password: String,
 )

@@ -22,14 +22,14 @@ class AppConfig {
         CustomUserDetailsService(userRepository)
 
     @Bean
-    fun encoder(): PasswordEncoder = BCryptPasswordEncoder()
+    fun passwordEncoder(): PasswordEncoder = BCryptPasswordEncoder()
 
     @Bean
     fun authenticationProvider(userRepository: UserRepository): AuthenticationProvider =
         DaoAuthenticationProvider()
             .also {
                 it.setUserDetailsService(userDetailsService(userRepository))
-                it.setPasswordEncoder(encoder())
+                it.setPasswordEncoder(passwordEncoder())
             }
 
     @Bean
