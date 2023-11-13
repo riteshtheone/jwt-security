@@ -1,0 +1,7 @@
+server:
+  port: 8000
+
+jwt:
+  key: 8Fy76Op0q8hbgknFC7ICZzM2aS6WmgHA4hWSLiGuxfjYTxLQR635lGVp8HUf32kdTUwOjqSwTB9MYwIgeecshs23BCfY4CX6pOD72MyV0jE6jMbSANl68psbh0eiCHbyVyfbocWYRgRTk_NZa-KQQ_bE9pYtpq4Q2QFya8VkjDU
+  access-token-expiration: 3600000
+  refresh-token-expiration: 86400000
